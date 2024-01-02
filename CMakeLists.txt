@@ -4,4 +4,8 @@ project(SteeringWheelReader)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(SteeringWheelReader main.cpp)
+add_executable(SteeringWheelReader 
+src/main.cpp
+src/wheel_driver.cpp
+src/wheel_event_reader.cpp
+)
