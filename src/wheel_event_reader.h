@@ -12,6 +12,8 @@ class WheelEventReader {
   bool OpenDevice();
   void QueryDeviceCapabilities();
   bool ReadEvent(js_event& event);
+  bool HasForceFeedbackSupport();
+  void QueryAxisRanges();
   // Other public methods
 
  private:
