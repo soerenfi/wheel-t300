@@ -35,7 +35,7 @@ private:
         if (event.type == JS_EVENT_AXIS) {
             if (event.number == 0) { // Assuming axis 0 is the steering axis
                 double angle = MapAxisValueToAngle(event.value);
-                std::cout << "Steering Axis: " << angle << " degrees" << std::endl;
+                std::cout << "Steering Axis (Physical Value): " << angle << " degrees" << std::endl;
             } else {
                 std::cout << "Axis " << static_cast<int>(event.number) << ": " << event.value << std::endl;
             }
@@ -47,8 +47,8 @@ private:
     double MapAxisValueToAngle(int value) {
         const int InputMin = -32767;
         const int InputMax = 32767;
-        const int OutputMin = -360;
-        const int OutputMax = 360;
+        const int OutputMin = -400; // Updated to -400 degrees
+        const int OutputMax = 400;  // Updated to 400 degrees
 
         return (static_cast<double>(value - InputMin) / (InputMax - InputMin)) * (OutputMax - OutputMin) + OutputMin;
     }
