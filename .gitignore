@@ -1,0 +1,56 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+CTestTestfile.cmake
+cmake_install.cmake
+build/
+Makefile
+
+# Include what you want to ignore from the external/ directory
+external/*
+
+# Ignore specific CMake configuration files
+/*.cmake
+
+# Ignore the build directory
+/build/
+
+
+# Visual Studio Code files
+.vscode/
+
+# Exclude user-specific files
+*.user
