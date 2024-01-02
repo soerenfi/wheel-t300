@@ -54,3 +54,4 @@ external/*
 
 # Exclude user-specific files
 *.user
+*.cache
