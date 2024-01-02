@@ -12,8 +12,9 @@ public:
             return;
         }
 
-        std::cout << "Reading joystick input from " << device_path_ << std::endl;
+        event_reader_.QueryDeviceCapabilities();
 
+        std::cout << "Reading joystick input from " << device_path_ << std::endl;
         js_event event;
         while (true) {
             if (!event_reader_.ReadEvent(event)) {
@@ -33,19 +34,16 @@ private:
     int axis1_value_;
     int axis2_value_;
 
+
     void PrintEvent(const js_event& event) {
         if (event.type == JS_EVENT_AXIS) {
             if (event.number == 0) { // Steering axis
                 double angle = MapSteeringAxisValueToAngle(event.value);
                 std::cout << "Steering Axis (Physical Value): " << angle << " degrees" << std::endl;
-            } else if (event.number == 1) { // Axis 1
-                axis1_value_ = event.value;
-                double percentage = MapAxisValueToPercentage(axis1_value_);
-                std::cout << "Axis 1: " << percentage << "%" << std::endl;
-            } else if (event.number == 2) { // Axis 2
-                axis2_value_ = event.value;
-                double percentage = MapAxisValueToPercentage(axis2_value_);
-                std::cout << "Axis 2: " << percentage << "%" << std::endl;
+            } else if (event.number == 1 || event.number == 2) { // Axis 1 and 2 (pedals)
+                int axis_value = event.number == 1 ? axis1_value_ = event.value : axis2_value_ = event.value;
+                double percentage = MapAxisValueToPercentage(axis_value);
+                std::cout << "Axis " << static_cast<int>(event.number) << ": " << percentage << "%" << std::endl;
             } else {
                 std::cout << "Axis " << static_cast<int>(event.number) << ": " << event.value << std::endl;
             }
@@ -66,10 +64,10 @@ private:
     double MapAxisValueToPercentage(int value) {
         const int InputMin = -32767;
         const int InputMax = 32767;
-        const int OutputMin = 0;
-        const int OutputMax = 100;
+        const int OutputMin = 100;
+        const int OutputMax = 0;
 
-        return (static_cast<double>(value - InputMin) / (InputMax - InputMin)) * (OutputMax - OutputMin);
+        return (static_cast<double>(value - InputMin) / (InputMax - InputMin)) * (OutputMax - OutputMin) + OutputMin;
     }
 };
 
